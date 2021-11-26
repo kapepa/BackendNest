@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const users_module_1 = require("./users/users.module");
 const config_1 = require("@nestjs/config");
+const users_entity_1 = require("./users/users.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -26,7 +27,7 @@ AppModule = __decorate([
                 username: process.env.MYSQL_USER,
                 password: process.env.MYSQL_PASSWORD,
                 database: process.env.MYSQL_DB,
-                entities: [],
+                entities: [users_entity_1.Users],
                 synchronize: true,
                 autoLoadEntities: true,
             }),

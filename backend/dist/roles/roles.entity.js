@@ -9,40 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Users = void 0;
+exports.Rolse = void 0;
 const typeorm_1 = require("typeorm");
-let Users = class Users {
+let Rolse = class Rolse {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], Users.prototype, "id", void 0);
+], Rolse.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Users.prototype, "email", void 0);
+], Rolse.prototype, "value", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Users.prototype, "password", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ default: false }),
-    __metadata("design:type", Boolean)
-], Users.prototype, "banned", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ default: '' }),
-    __metadata("design:type", String)
-], Users.prototype, "banReason", void 0);
-__decorate([
-    (0, typeorm_1.UpdateDateColumn)(),
-    __metadata("design:type", Date)
-], Users.prototype, "updatedDate", void 0);
-__decorate([
-    (0, typeorm_1.CreateDateColumn)(),
-    __metadata("design:type", Date)
-], Users.prototype, "createdDate", void 0);
-Users = __decorate([
+], Rolse.prototype, "description", void 0);
+Rolse = __decorate([
     (0, typeorm_1.Entity)()
-], Users);
-exports.Users = Users;
-//# sourceMappingURL=users.entity.js.map
+], Rolse);
+exports.Rolse = Rolse;
+//# sourceMappingURL=roles.entity.js.map

@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Users {
@@ -14,6 +20,12 @@ export class Users {
   @Column({ default: false })
   banned: boolean;
 
-  @Column()
+  @Column({ default: '' })
   banReason: string;
+
+  @UpdateDateColumn()
+  updatedDate: Date;
+
+  @CreateDateColumn()
+  createdDate: Date;
 }

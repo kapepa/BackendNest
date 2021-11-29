@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { Users } from './users/users.entity';
+import { Rolse } from './roles/roles.entity';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
@@ -16,11 +18,12 @@ import { Users } from './users/users.entity';
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DB,
-      entities: [Users],
+      entities: [Users, Rolse],
       synchronize: true,
       autoLoadEntities: true,
     }),
     UsersModule,
+    RolesModule,
   ],
   controllers: [],
   providers: [],

@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Rolse } from '../roles/roles.entity';
 
 @Entity()
 export class Users {
@@ -22,6 +24,9 @@ export class Users {
 
   @Column({ default: '' })
   banReason: string;
+
+  @OneToMany(() => Rolse, (roles) => roles.value)
+  roles: string;
 
   @UpdateDateColumn()
   updatedDate: Date;

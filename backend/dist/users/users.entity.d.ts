@@ -4,6 +4,7 @@ export declare class Users {
     password: string;
     banned: boolean;
     banReason: string;
+    roles: string;
     updatedDate: Date;
     createdDate: Date;
 }

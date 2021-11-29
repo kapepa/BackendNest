@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Users = void 0;
 const typeorm_1 = require("typeorm");
+const roles_entity_1 = require("../roles/roles.entity");
 let Users = class Users {
 };
 __decorate([
@@ -33,6 +34,10 @@ __decorate([
     (0, typeorm_1.Column)({ default: '' }),
     __metadata("design:type", String)
 ], Users.prototype, "banReason", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => roles_entity_1.Rolse, (roles) => roles.value),
+    __metadata("design:type", String)
+], Users.prototype, "roles", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)

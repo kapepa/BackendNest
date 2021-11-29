@@ -9,26 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Rolse = void 0;
+exports.RolseUser = void 0;
 const typeorm_1 = require("typeorm");
-const users_entity_1 = require("../users/users.entity");
-let Rolse = class Rolse {
+let RolseUser = class RolseUser {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], Rolse.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => users_entity_1.Users, (users) => users.roles),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Rolse.prototype, "value", void 0);
+], RolseUser.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Rolse.prototype, "description", void 0);
-Rolse = __decorate([
+], RolseUser.prototype, "userID", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], RolseUser.prototype, "roleID", void 0);
+RolseUser = __decorate([
     (0, typeorm_1.Entity)()
-], Rolse);
-exports.Rolse = Rolse;
-//# sourceMappingURL=roles.entity.js.map
+], RolseUser);
+exports.RolseUser = RolseUser;
+//# sourceMappingURL=roles-user.entity.js.map

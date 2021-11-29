@@ -14,6 +14,7 @@ const config_1 = require("@nestjs/config");
 const users_entity_1 = require("./users/users.entity");
 const roles_entity_1 = require("./roles/roles.entity");
 const roles_module_1 = require("./roles/roles.module");
+const roles_user_entity_1 = require("./roles/roles-user.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -29,7 +30,7 @@ AppModule = __decorate([
                 username: process.env.MYSQL_USER,
                 password: process.env.MYSQL_PASSWORD,
                 database: process.env.MYSQL_DB,
-                entities: [users_entity_1.Users, roles_entity_1.Rolse],
+                entities: [users_entity_1.Users, roles_entity_1.Rolse, roles_user_entity_1.RolseUser],
                 synchronize: true,
                 autoLoadEntities: true,
             }),

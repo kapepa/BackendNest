@@ -19,14 +19,14 @@ export class RolesController {
     return role;
   }
 
-  @Post()
+  @Post('/receive/:val')
   @ApiResponse({
     status: 200,
     description: 'Return role',
     type: [RoleDto],
   })
-  async getByValue(@Param() val: string): Promise<any> {
-    const role = await this.getByValue(val);
+  async getByValue(@Param('val') val: string): Promise<any> {
+    const role = await this.roleService.getRolesByValue(val);
     return role;
   }
 }

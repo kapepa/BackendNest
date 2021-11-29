@@ -1,5 +1,9 @@
+import { Users } from '../users/users.entity';
 export declare class Rolse {
     id: string;
     value: string;
     description: string;
+    user: Users;
+    updatedDate: Date;
+    createdDate: Date;
 }

@@ -19,7 +19,6 @@ __decorate([
     __metadata("design:type", String)
 ], Rolse.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => users_entity_1.Users, (users) => users.roles),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Rolse.prototype, "value", void 0);
@@ -27,6 +26,18 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Rolse.prototype, "description", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => users_entity_1.Users, (users) => users.roles),
+    __metadata("design:type", users_entity_1.Users)
+], Rolse.prototype, "user", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)(),
+    __metadata("design:type", Date)
+], Rolse.prototype, "updatedDate", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Rolse.prototype, "createdDate", void 0);
 Rolse = __decorate([
     (0, typeorm_1.Entity)()
 ], Rolse);

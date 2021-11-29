@@ -26,7 +26,7 @@ let RolesController = class RolesController {
         return role;
     }
     async getByValue(val) {
-        const role = await this.getByValue(val);
+        const role = await this.roleService.getRolesByValue(val);
         return role;
     }
 };
@@ -43,13 +43,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RolesController.prototype, "create", null);
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('/receive/:val'),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Return role',
         type: [roles_dto_1.RoleDto],
     }),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, common_1.Param)('val')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { Users } from './users/users.entity';
 import { Rolse } from './roles/roles.entity';
 import { RolesModule } from './roles/roles.module';
-import { RolseUser } from "./roles/roles-user.entity";
+// import { RolseUser } from "./roles/roles-user.entity";
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { RolseUser } from "./roles/roles-user.entity";
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DB,
-      entities: [Users, Rolse, RolseUser],
+      entities: [Users, Rolse],
       synchronize: true,
       autoLoadEntities: true,
     }),

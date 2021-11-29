@@ -17,13 +17,17 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const users_entity_1 = require("./users.entity");
+const roles_service_1 = require("../roles/roles.service");
 let UsersService = class UsersService {
-    constructor(usersRepository) {
+    constructor(usersRepository, roleServise) {
         this.usersRepository = usersRepository;
+        this.roleServise = roleServise;
     }
     async createUser(dto) {
         try {
+            const role = await this.roleServise.getRolesByValue('USER');
             const user = this.usersRepository.create(dto);
+            user.roles = role;
             const save = await this.usersRepository.save(user);
             return save;
         }
@@ -33,7 +37,9 @@ let UsersService = class UsersService {
     }
     async getAllUser() {
         try {
-            const users = await this.usersRepository.find();
+            const users = await this.usersRepository.find({
+                relations: ['roles'],
+            });
             return users;
         }
         catch (e) {
@@ -44,7 +50,8 @@ let UsersService = class UsersService {
 UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(users_entity_1.Users)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        roles_service_1.RolesService])
 ], UsersService);
 exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

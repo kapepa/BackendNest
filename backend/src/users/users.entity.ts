@@ -25,8 +25,8 @@ export class Users {
   @Column({ default: '' })
   banReason: string;
 
-  @OneToMany(() => Rolse, (roles) => roles.value)
-  roles: string;
+  @OneToMany(() => Rolse, (roles) => roles.user)
+  roles: Rolse[];
 
   @UpdateDateColumn()
   updatedDate: Date;

@@ -35,8 +35,8 @@ __decorate([
     __metadata("design:type", String)
 ], Users.prototype, "banReason", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => roles_entity_1.Rolse, (roles) => roles.value),
-    __metadata("design:type", String)
+    (0, typeorm_1.OneToMany)(() => roles_entity_1.Rolse, (roles) => roles.user),
+    __metadata("design:type", Array)
 ], Users.prototype, "roles", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)(),

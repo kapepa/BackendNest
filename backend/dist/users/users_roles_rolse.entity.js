@@ -9,37 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Roles = void 0;
+exports.UsersRolesRolse = void 0;
 const typeorm_1 = require("typeorm");
-const users_entity_1 = require("../users/users.entity");
-let Roles = class Roles {
+let UsersRolesRolse = class UsersRolesRolse {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], Roles.prototype, "id", void 0);
+], UsersRolesRolse.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Roles.prototype, "value", void 0);
+], UsersRolesRolse.prototype, "usersId", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Roles.prototype, "description", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => users_entity_1.Users, (user) => user.roles),
-    __metadata("design:type", Array)
-], Roles.prototype, "user", void 0);
-__decorate([
-    (0, typeorm_1.UpdateDateColumn)(),
-    __metadata("design:type", Date)
-], Roles.prototype, "updatedDate", void 0);
-__decorate([
-    (0, typeorm_1.CreateDateColumn)(),
-    __metadata("design:type", Date)
-], Roles.prototype, "createdDate", void 0);
-Roles = __decorate([
+], UsersRolesRolse.prototype, "rolseId", void 0);
+UsersRolesRolse = __decorate([
     (0, typeorm_1.Entity)()
-], Roles);
-exports.Roles = Roles;
-//# sourceMappingURL=roles.entity.js.map
+], UsersRolesRolse);
+exports.UsersRolesRolse = UsersRolesRolse;
+//# sourceMappingURL=users_roles_rolse.entity.js.map

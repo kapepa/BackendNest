@@ -25,6 +25,7 @@ let RolesService = class RolesService {
         try {
             const createRole = this.roleRepository.create(dto);
             const saveRole = await this.roleRepository.save(createRole);
+            console.log(saveRole);
             return saveRole;
         }
         catch (e) {
@@ -33,7 +34,9 @@ let RolesService = class RolesService {
     }
     async getRolesByValue(value) {
         try {
-            const role = await this.roleRepository.find({ where: { value: value } });
+            const role = await this.roleRepository.findOne({
+                where: { value: value },
+            });
             return role;
         }
         catch (e) {
@@ -43,7 +46,7 @@ let RolesService = class RolesService {
 };
 RolesService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(roles_entity_1.Rolse)),
+    __param(0, (0, typeorm_1.InjectRepository)(roles_entity_1.Roles)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
 ], RolesService);
 exports.RolesService = RolesService;

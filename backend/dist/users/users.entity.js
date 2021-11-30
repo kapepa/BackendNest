@@ -35,7 +35,18 @@ __decorate([
     __metadata("design:type", String)
 ], Users.prototype, "banReason", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => roles_entity_1.Rolse, (roles) => roles.user),
+    (0, typeorm_1.ManyToMany)(() => roles_entity_1.Roles, (roles) => roles.user),
+    (0, typeorm_1.JoinTable)({
+        name: 'users_roles',
+        joinColumn: {
+            name: 'usersId',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'rolesId',
+            referencedColumnName: 'id',
+        },
+    }),
     __metadata("design:type", Array)
 ], Users.prototype, "roles", void 0);
 __decorate([

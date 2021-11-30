@@ -4,9 +4,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   CreateDateColumn,
-  OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
-import { Rolse } from '../roles/roles.entity';
+import { Roles } from '../roles/roles.entity';
 
 @Entity()
 export class Users {
@@ -25,8 +26,19 @@ export class Users {
   @Column({ default: '' })
   banReason: string;
 
-  @OneToMany(() => Rolse, (roles) => roles.user)
-  roles: Rolse[];
+  @ManyToMany(() => Roles, (roles) => roles.user)
+  @JoinTable({
+    name: 'users_roles',
+    joinColumn: {
+      name: 'usersId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'rolesId',
+      referencedColumnName: 'id',
+    },
+  })
+  roles: Roles[];
 
   @UpdateDateColumn()
   updatedDate: Date;

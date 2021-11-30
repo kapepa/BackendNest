@@ -25,9 +25,9 @@ let UsersService = class UsersService {
     }
     async createUser(dto) {
         try {
-            const role = await this.roleServise.getRolesByValue('USER');
             const user = this.usersRepository.create(dto);
-            user.roles = role;
+            const role = await this.roleServise.getRolesByValue('USER');
+            user.roles = [role];
             const save = await this.usersRepository.save(user);
             return save;
         }
@@ -41,6 +41,18 @@ let UsersService = class UsersService {
                 relations: ['roles'],
             });
             return users;
+        }
+        catch (e) {
+            return e.name;
+        }
+    }
+    async getUserByEmail(email) {
+        try {
+            const user = await this.usersRepository.findOne({
+                where: { email },
+                relations: ['roles'],
+            });
+            return user;
         }
         catch (e) {
             return e.name;

@@ -1,9 +1,9 @@
 import { Users } from '../users/users.entity';
-export declare class Rolse {
+export declare class Roles {
     id: string;
     value: string;
     description: string;
-    user: Users;
+    user: Users[];
     updatedDate: Date;
     createdDate: Date;
 }

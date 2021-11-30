@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Post } from '@nestjs/common';
 import { RolesService } from './roles.service';
-import { RoleDto } from './dto/roles.dto';
+import { RoleDto, CreateRoleDto } from './dto/roles.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Roles')
@@ -14,7 +14,7 @@ export class RolesController {
     description: 'Create new role',
     type: [RoleDto],
   })
-  async create(@Body() dto: RoleDto): Promise<any>{
+  async create(@Body() dto: CreateRoleDto): Promise<RoleDto> {
     const role = await this.roleService.createRole(dto);
     return role;
   }
@@ -25,7 +25,7 @@ export class RolesController {
     description: 'Return role',
     type: [RoleDto],
   })
-  async getByValue(@Param('val') val: string): Promise<any> {
+  async getByValue(@Param('val') val: string): Promise<RoleDto> {
     const role = await this.roleService.getRolesByValue(val);
     return role;
   }

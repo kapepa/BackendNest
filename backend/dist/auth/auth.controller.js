@@ -12,52 +12,50 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RolesController = void 0;
+exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
-const roles_service_1 = require("./roles.service");
-const roles_dto_1 = require("./dto/roles.dto");
 const swagger_1 = require("@nestjs/swagger");
-let RolesController = class RolesController {
-    constructor(roleService) {
-        this.roleService = roleService;
+const create_user_dto_1 = require("../users/dto/create-user.dto");
+const auth_service_1 = require("./auth.service");
+let AuthController = class AuthController {
+    constructor(authService) {
+        this.authService = authService;
     }
-    async create(dto) {
-        const role = await this.roleService.createRole(dto);
-        return role;
+    async login(dto) {
+        const login = await this.authService.login(dto);
+        return login;
     }
-    async getByValue(val) {
-        const role = await this.roleService.getRolesByValue(val);
-        return role;
+    async registration(dto) {
+        const regist = await this.authService.registration(dto);
+        return regist;
     }
 };
 __decorate([
-    (0, common_1.Post)('/create'),
-    (0, swagger_1.ApiResponse)({
+    (0, common_1.Post)('/login'),
+    (0, swagger_1.ApiCreatedResponse)({
         status: 200,
-        description: 'Create new role',
-        type: [roles_dto_1.RoleDto],
+        description: 'The successfully login.',
     }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [roles_dto_1.CreateRoleDto]),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
-], RolesController.prototype, "create", null);
+], AuthController.prototype, "login", null);
 __decorate([
-    (0, common_1.Post)('/receive/:val'),
-    (0, swagger_1.ApiResponse)({
+    (0, common_1.Post)('/regist'),
+    (0, swagger_1.ApiCreatedResponse)({
         status: 200,
-        description: 'Return role',
-        type: [roles_dto_1.RoleDto],
+        description: 'The successfully registration.',
     }),
-    __param(0, (0, common_1.Param)('val')),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
-], RolesController.prototype, "getByValue", null);
-RolesController = __decorate([
-    (0, swagger_1.ApiTags)('Roles'),
-    (0, common_1.Controller)('roles'),
-    __metadata("design:paramtypes", [roles_service_1.RolesService])
-], RolesController);
-exports.RolesController = RolesController;
-//# sourceMappingURL=roles.controller.js.map
+], AuthController.prototype, "registration", null);
+AuthController = __decorate([
+    (0, swagger_1.ApiTags)('Auth'),
+    (0, common_1.Controller)('auth'),
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
+], AuthController);
+exports.AuthController = AuthController;
+//# sourceMappingURL=auth.controller.js.map

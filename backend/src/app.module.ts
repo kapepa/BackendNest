@@ -3,9 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { Users } from './users/users.entity';
-import { Rolse } from './roles/roles.entity';
+import { Roles } from './roles/roles.entity';
 import { RolesModule } from './roles/roles.module';
-// import { RolseUser } from "./roles/roles-user.entity";
+import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,14 +21,15 @@ import { RolesModule } from './roles/roles.module';
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DB,
-      entities: [Users, Rolse],
+      entities: [Users, Roles],
       synchronize: true,
       autoLoadEntities: true,
     }),
     UsersModule,
     RolesModule,
+    AuthModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AuthController],
+  providers: [AuthService],
 })
 export class AppModule {}

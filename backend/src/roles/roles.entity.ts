@@ -9,7 +9,7 @@ import {
 import { Users } from '../users/users.entity';
 
 @Entity()
-export class Rolse {
+export class Roles {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -19,8 +19,8 @@ export class Rolse {
   @Column()
   description: string;
 
-  @ManyToOne(() => Users, (users) => users.roles)
-  user: Users;
+  @ManyToOne(() => Users, (user) => user.roles)
+  user: Users[];
 
   @UpdateDateColumn()
   updatedDate: Date;

@@ -28,7 +28,7 @@ export class RoleDto {
   @ApiProperty({
     description: 'user data',
   })
-  readonly user?: UserDto;
+  readonly user?: UserDto[];
   @ApiProperty({
     description: 'lastlatest data update role',
   })

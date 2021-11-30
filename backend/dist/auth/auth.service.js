@@ -19,19 +19,29 @@ let AuthService = class AuthService {
         this.userService = userService;
         this.jwtService = jwtService;
     }
+    wrapperJwt(user) {
+        return {
+            access_token: this.jwtService.sign({
+                email: user.email,
+                password: user.password,
+                sub: user.id,
+            }),
+        };
+    }
     async login(dto) {
+        const user = await this.userService.getUserByEmail(dto.email);
+        const isMatch = await bcrypt.compare(dto.password, user.password);
+        if (user && isMatch)
+            return this.wrapperJwt(user);
+        throw new common_1.UnauthorizedException({ message: 'wrong email either password' });
+    }
+    async registration(dto) {
         const candidate = await this.userService.getUserByEmail(dto.email);
         if (candidate)
             throw new common_1.HttpException(candidate, common_1.HttpStatus.BAD_REQUEST);
         const hash = await bcrypt.hash(dto.password, Number(process.env.BCRYPT_SALT));
         const create = await this.userService.createUser(Object.assign(Object.assign({}, dto), { password: hash }));
-        return { access_token: this.jwtService.sign(create) };
-    }
-    async registration(dto) {
-        return [];
-    }
-    async validateUser(username, pass) {
-        return [];
+        return this.wrapperJwt(create);
     }
 };
 AuthService = __decorate([

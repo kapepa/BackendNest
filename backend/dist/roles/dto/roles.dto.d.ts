@@ -7,7 +7,7 @@ export declare class RoleDto {
     readonly id: string;
     readonly value: string;
     readonly description: string;
-    readonly user?: UserDto;
+    readonly user?: UserDto[];
     readonly updatedDate: Date;
     readonly createdDate: Date;
 }

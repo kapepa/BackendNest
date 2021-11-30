@@ -60,6 +60,12 @@ __decorate([
 ], UserDto.prototype, "banReason", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
+        description: 'roles user',
+    }),
+    __metadata("design:type", Array)
+], UserDto.prototype, "roles", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
         description: 'lastlatest data update user',
     }),
     __metadata("design:type", Date)

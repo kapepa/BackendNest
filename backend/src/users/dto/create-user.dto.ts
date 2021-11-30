@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { RoleDto } from '../../roles/dto/roles.dto';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -32,6 +33,10 @@ export class UserDto {
     description: 'user reason',
   })
   readonly banReason: string;
+  @ApiProperty({
+    description: 'roles user',
+  })
+  readonly roles?: RoleDto[];
   @ApiProperty({
     description: 'lastlatest data update user',
   })

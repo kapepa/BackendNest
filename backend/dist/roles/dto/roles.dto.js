@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoleDto = exports.CreateRoleDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-const create_user_dto_1 = require("../../users/dto/create-user.dto");
 class CreateRoleDto {
 }
 __decorate([
@@ -51,7 +50,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'user data',
     }),
-    __metadata("design:type", create_user_dto_1.UserDto)
+    __metadata("design:type", Array)
 ], RoleDto.prototype, "user", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({

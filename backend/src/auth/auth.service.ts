@@ -1,8 +1,14 @@
-import { HttpException, HttpStatus, Injectable} from '@nestjs/common';
-import { CreateUserDto } from '../users/dto/create-user.dto';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { CreateUserDto, UserDto } from '../users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { IJwtToken } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -11,10 +17,26 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async login(dto: CreateUserDto): Promise<any> {
+  wrapperJwt(user: UserDto) {
+    return {
+      access_token: this.jwtService.sign({
+        email: user.email,
+        password: user.password,
+        sub: user.id,
+      }),
+    };
+  }
+
+  async login(dto: CreateUserDto): Promise<IJwtToken> {
+    const user = await this.userService.getUserByEmail(dto.email);
+    const isMatch = await bcrypt.compare(dto.password, user.password);
+    if (user && isMatch) return this.wrapperJwt(user);
+    throw new UnauthorizedException({ message: 'wrong email either password' });
+  }
+
+  async registration(dto: CreateUserDto): Promise<IJwtToken> {
     const candidate = await this.userService.getUserByEmail(dto.email);
     if (candidate) throw new HttpException(candidate, HttpStatus.BAD_REQUEST);
-
     const hash = await bcrypt.hash(
       dto.password,
       Number(process.env.BCRYPT_SALT),
@@ -23,15 +45,6 @@ export class AuthService {
       ...dto,
       password: hash,
     });
-
-    return { access_token: this.jwtService.sign(create) };
-  }
-
-  async registration(dto: CreateUserDto): Promise<any> {
-    return [];
-  }
-
-  async validateUser(username: string, pass: string): Promise<any> {
-    return [];
+    return this.wrapperJwt(create);
   }
 }

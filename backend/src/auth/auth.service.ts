@@ -14,7 +14,7 @@ import { IJwtToken } from './dto/auth.dto';
 export class AuthService {
   constructor(
     private userService: UsersService,
-    private jwtService: JwtService,
+    private jwtService: JwtService
   ) {}
 
   wrapperJwt(user: UserDto) {
@@ -39,12 +39,22 @@ export class AuthService {
     if (candidate) throw new HttpException(candidate, HttpStatus.BAD_REQUEST);
     const hash = await bcrypt.hash(
       dto.password,
-      Number(process.env.BCRYPT_SALT),
+      Number(process.env.BCRYPT_SALT)
     );
     const create = await this.userService.createUser({
       ...dto,
       password: hash,
     });
     return this.wrapperJwt(create);
+  }
+
+  async validateUser(): Promise<any> {
+    console.log('validateUser');
+    // const user = await this.usersService.findOne(username);
+    // if (user && user.password === pass) {
+    //   const { password, ...result } = user;
+    //   return result;
+    // }
+    return null;
   }
 }

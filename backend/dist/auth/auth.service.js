@@ -43,6 +43,10 @@ let AuthService = class AuthService {
         const create = await this.userService.createUser(Object.assign(Object.assign({}, dto), { password: hash }));
         return this.wrapperJwt(create);
     }
+    async validateUser() {
+        console.log('validateUser');
+        return null;
+    }
 };
 AuthService = __decorate([
     (0, common_1.Injectable)(),

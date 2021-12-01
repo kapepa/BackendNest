@@ -11,4 +11,5 @@ export declare class AuthService {
     };
     login(dto: CreateUserDto): Promise<IJwtToken>;
     registration(dto: CreateUserDto): Promise<IJwtToken>;
+    validateUser(): Promise<any>;
 }

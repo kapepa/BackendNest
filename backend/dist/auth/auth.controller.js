@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const create_user_dto_1 = require("../users/dto/create-user.dto");
 const auth_service_1 = require("./auth.service");
+const auth_dto_1 = require("./dto/auth.dto");
+const local_auth_guard_1 = require("./local-auth.guard");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -31,10 +33,12 @@ let AuthController = class AuthController {
     }
 };
 __decorate([
+    (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
     (0, common_1.Post)('/login'),
     (0, swagger_1.ApiCreatedResponse)({
         status: 200,
         description: 'The successfully login.',
+        type: auth_dto_1.IJwtToken,
     }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -46,6 +50,7 @@ __decorate([
     (0, swagger_1.ApiCreatedResponse)({
         status: 200,
         description: 'The successfully registration.',
+        type: auth_dto_1.IJwtToken,
     }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

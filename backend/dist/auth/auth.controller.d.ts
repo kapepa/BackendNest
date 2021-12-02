@@ -4,5 +4,6 @@ import { IJwtToken } from './dto/auth.dto';
 export declare class AuthController {
     private authService;
     constructor(authService: AuthService);
-    login(dto: CreateUserDto): Promise<IJwtToken>;
+    signin(dto: CreateUserDto, req: any): Promise<IJwtToken>;
+    registration(dto: CreateUserDto): Promise<IJwtToken>;
 }

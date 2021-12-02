@@ -19,13 +19,19 @@ const create_user_dto_1 = require("../users/dto/create-user.dto");
 const auth_service_1 = require("./auth.service");
 const auth_dto_1 = require("./dto/auth.dto");
 const jwt_auth_guard_1 = require("./jwt-auth.guard");
+const local_auth_guard_1 = require("./local-auth.guard");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    async login(dto) {
-        const login = await this.authService.login(dto);
+    async signin(dto, req) {
+        console.log(req.user);
+        const login = await this.authService.signin(dto);
         return login;
+    }
+    async registration(dto) {
+        const regist = await this.authService.registration(dto);
+        return regist;
     }
 };
 __decorate([
@@ -37,10 +43,24 @@ __decorate([
         type: auth_dto_1.IJwtToken,
     }),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "signin", null);
+__decorate([
+    (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
+    (0, common_1.Post)('/regist'),
+    (0, swagger_1.ApiCreatedResponse)({
+        status: 200,
+        description: 'The successfully registration.',
+        type: auth_dto_1.IJwtToken,
+    }),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "login", null);
+], AuthController.prototype, "registration", null);
 AuthController = __decorate([
     (0, swagger_1.ApiTags)('Auth'),
     (0, common_1.Controller)('auth'),

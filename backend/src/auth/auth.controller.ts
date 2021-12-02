@@ -1,6 +1,6 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
 import { ApiCreatedResponse, ApiTags} from '@nestjs/swagger';
-import { CreateUserDto } from '../users/dto/create-user.dto';
+import { CreateUserDto, UserDto} from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { IJwtToken } from './dto/auth.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -18,20 +18,21 @@ export class AuthController {
     description: 'The successfully login.',
     type: IJwtToken,
   })
-  async login(@Body() dto: CreateUserDto): Promise<IJwtToken> {
-    const login = await this.authService.login(dto);
+  async signin(@Body() dto: CreateUserDto, @Request() req): Promise<IJwtToken> {
+    console.log(req.user);
+    const login = await this.authService.signin(dto);
     return login;
   }
 
-  // @UseGuards(LocalAuthGuard)
-  // @Post('/regist')
-  // @ApiCreatedResponse({
-  //   status: 200,
-  //   description: 'The successfully registration.',
-  //   type: IJwtToken,
-  // })
-  // async registration(@Body() dto: CreateUserDto): Promise<IJwtToken> {
-  //   const regist = await this.authService.registration(dto);
-  //   return regist;
-  // }
+  @UseGuards(LocalAuthGuard)
+  @Post('/regist')
+  @ApiCreatedResponse({
+    status: 200,
+    description: 'The successfully registration.',
+    type: IJwtToken,
+  })
+  async registration(@Body() dto: CreateUserDto): Promise<IJwtToken> {
+    const regist = await this.authService.registration(dto);
+    return regist;
+  }
 }

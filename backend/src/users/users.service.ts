@@ -13,6 +13,13 @@ export class UsersService {
     private roleServise: RolesService,
   ) {}
 
+  async findOne(email: string): Promise<any> {
+    const user = await this.usersRepository.findOne({
+      where: { email: email },
+    });
+    return user;
+  }
+
   async createUser(dto: CreateUserDto): Promise<UserDto> {
     try {
       const user = this.usersRepository.create(dto);

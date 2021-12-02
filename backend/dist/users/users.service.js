@@ -23,6 +23,12 @@ let UsersService = class UsersService {
         this.usersRepository = usersRepository;
         this.roleServise = roleServise;
     }
+    async findOne(email) {
+        const user = await this.usersRepository.findOne({
+            where: { email: email },
+        });
+        return user;
+    }
     async createUser(dto) {
         try {
             const user = this.usersRepository.create(dto);

@@ -5,5 +5,4 @@ export declare class AuthController {
     private authService;
     constructor(authService: AuthService);
     login(dto: CreateUserDto): Promise<IJwtToken>;
-    registration(dto: CreateUserDto): Promise<IJwtToken>;
 }

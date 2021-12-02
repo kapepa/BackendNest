@@ -13,48 +13,54 @@ import { IJwtToken } from './dto/auth.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UsersService,
+    // private userService: UsersService,
     private jwtService: JwtService
   ) {}
 
-  wrapperJwt(user: UserDto) {
+  // async validateUser(username: string, pass: string): Promise<any> {
+  //   const user = await this.usersService.findOne(username);
+  //   if (user && user.password === pass) {
+  //     const { password, ...result } = user;
+  //     return result;
+  //   }
+  //   return null;
+  // }
+
+  async login(user: any) {
+    const payload = { username: user.username, sub: user.userId };
     return {
-      access_token: this.jwtService.sign({
-        email: user.email,
-        password: user.password,
-        sub: user.id,
-      }),
+      access_token: this.jwtService.sign(payload),
     };
   }
 
-  async login(dto: CreateUserDto): Promise<IJwtToken> {
-    const user = await this.userService.getUserByEmail(dto.email);
-    const isMatch = await bcrypt.compare(dto.password, user.password);
-    if (user && isMatch) return this.wrapperJwt(user);
-    throw new UnauthorizedException({ message: 'wrong email either password' });
-  }
-
-  async registration(dto: CreateUserDto): Promise<IJwtToken> {
-    const candidate = await this.userService.getUserByEmail(dto.email);
-    if (candidate) throw new HttpException(candidate, HttpStatus.BAD_REQUEST);
-    const hash = await bcrypt.hash(
-      dto.password,
-      Number(process.env.BCRYPT_SALT)
-    );
-    const create = await this.userService.createUser({
-      ...dto,
-      password: hash,
-    });
-    return this.wrapperJwt(create);
-  }
-
-  async validateUser(): Promise<any> {
-    console.log('validateUser');
-    // const user = await this.usersService.findOne(username);
-    // if (user && user.password === pass) {
-    //   const { password, ...result } = user;
-    //   return result;
-    // }
-    return null;
-  }
+  // wrapperJwt(user: UserDto) {
+  //   return {
+  //     access_token: this.jwtService.sign({
+  //       email: user.email,
+  //       password: user.password,
+  //       sub: user.id,
+  //     }),
+  //   };
+  // }
+  //
+  // async login(dto: CreateUserDto): Promise<IJwtToken> {
+  //   const user = await this.userService.getUserByEmail(dto.email);
+  //   const isMatch = await bcrypt.compare(dto.password, user.password);
+  //   if (user && isMatch) return this.wrapperJwt(user);
+  //   throw new UnauthorizedException({ message: 'wrong email either password' });
+  // }
+  //
+  // async registration(dto: CreateUserDto): Promise<IJwtToken> {
+  //   const candidate = await this.userService.getUserByEmail(dto.email);
+  //   if (candidate) throw new HttpException(candidate, HttpStatus.BAD_REQUEST);
+  //   const hash = await bcrypt.hash(
+  //     dto.password,
+  //     Number(process.env.BCRYPT_SALT)
+  //   );
+  //   const create = await this.userService.createUser({
+  //     ...dto,
+  //     password: hash,
+  //   });
+  //   return this.wrapperJwt(create);
+  // }
 }

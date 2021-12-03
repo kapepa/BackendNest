@@ -66,6 +66,12 @@ __decorate([
 ], UserDto.prototype, "roles", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
+        description: 'JwtToken',
+    }),
+    __metadata("design:type", String)
+], UserDto.prototype, "jwtToken", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
         description: 'lastlatest data update user',
     }),
     __metadata("design:type", Date)

@@ -38,6 +38,10 @@ export class UserDto {
   })
   readonly roles?: RoleDto[];
   @ApiProperty({
+    description: 'JwtToken',
+  })
+  readonly jwtToken: string;
+  @ApiProperty({
     description: 'lastlatest data update user',
   })
   readonly updatedDate?: Date;

@@ -52,6 +52,10 @@ let UsersService = class UsersService {
             return e.name;
         }
     }
+    async updateUser(id, field, data) {
+        const update = await this.usersRepository.update(id, { [field]: data });
+        return null;
+    }
     async getUserByEmail(email) {
         try {
             const user = await this.usersRepository.findOne({

@@ -40,6 +40,9 @@ export class Users {
   })
   roles: Roles[];
 
+  @Column({ default: '', length: 500})
+  jwtToken: string;
+
   @UpdateDateColumn()
   updatedDate: Date;
 

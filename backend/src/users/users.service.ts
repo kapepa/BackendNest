@@ -4,13 +4,14 @@ import { Repository } from 'typeorm';
 import { Users } from './users.entity';
 import { CreateUserDto, UserDto } from './dto/create-user.dto';
 import { RolesService } from '../roles/roles.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(Users)
     private usersRepository: Repository<Users>,
-    private roleServise: RolesService,
+    private roleServise: RolesService
   ) {}
 
   async findOne(email: string): Promise<any> {
@@ -41,6 +42,11 @@ export class UsersService {
     } catch (e){
       return e.name;
     }
+  }
+
+  async updateUser(id: string, field: string, data: any): Promise<any> {
+    const update = await this.usersRepository.update(id, { [field]: data });
+    return null;
   }
 
   async getUserByEmail(email: string): Promise<UserDto> {

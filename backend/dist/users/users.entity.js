@@ -50,6 +50,10 @@ __decorate([
     __metadata("design:type", Array)
 ], Users.prototype, "roles", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ default: '', length: 500 }),
+    __metadata("design:type", String)
+], Users.prototype, "jwtToken", void 0);
+__decorate([
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
 ], Users.prototype, "updatedDate", void 0);

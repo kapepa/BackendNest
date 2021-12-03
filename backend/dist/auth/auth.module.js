@@ -13,8 +13,8 @@ const auth_service_1 = require("./auth.service");
 const users_module_1 = require("../users/users.module");
 const passport_1 = require("@nestjs/passport");
 const jwt_1 = require("@nestjs/jwt");
-const jwt_strategy_1 = require("./strategies/jwt.strategy");
-const local_strategy_1 = require("./strategies/local.strategy");
+const jwt_strategy_1 = require("./strategy/jwt.strategy");
+const local_strategy_1 = require("./strategy/local.strategy");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([

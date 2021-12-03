@@ -10,6 +10,7 @@ export declare class UserDto {
     readonly banned: boolean;
     readonly banReason: string;
     readonly roles?: RoleDto[];
+    readonly jwtToken: string;
     readonly updatedDate?: Date;
     readonly createdDate?: Date;
 }

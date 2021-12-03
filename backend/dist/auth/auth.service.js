@@ -39,13 +39,6 @@ let AuthService = class AuthService {
         }
         return null;
     }
-    async login(user) {
-        console.log(user);
-        const payload = { username: user.username, sub: user.userId };
-        return {
-            access_token: this.jwtService.sign(payload),
-        };
-    }
     wrapperJwt(user) {
         return {
             access_token: this.jwtService.sign({
@@ -55,11 +48,14 @@ let AuthService = class AuthService {
             }),
         };
     }
-    async signin(dto) {
+    async login(dto) {
         const user = await this.userService.getUserByEmail(dto.email);
         const isMatch = await bcrypt.compare(dto.password, user.password);
-        if (user && isMatch)
-            return this.wrapperJwt(user);
+        if (user && isMatch) {
+            const jwt = this.wrapperJwt(user);
+            await this.userService.updateUser(user.id, 'jwtToken', jwt.access_token);
+            return jwt;
+        }
         throw new common_1.UnauthorizedException({ message: 'wrong email either password' });
     }
     async registration(dto) {
@@ -68,7 +64,7 @@ let AuthService = class AuthService {
             throw new common_1.HttpException(candidate, common_1.HttpStatus.BAD_REQUEST);
         const hash = await bcrypt.hash(dto.password, Number(process.env.BCRYPT_SALT));
         const create = await this.userService.createUser(Object.assign(Object.assign({}, dto), { password: hash }));
-        return this.wrapperJwt(create);
+        return create;
     }
 };
 AuthService = __decorate([

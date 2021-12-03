@@ -6,6 +6,7 @@ export declare class Users {
     banned: boolean;
     banReason: string;
     roles: Roles[];
+    jwtToken: string;
     updatedDate: Date;
     createdDate: Date;
 }

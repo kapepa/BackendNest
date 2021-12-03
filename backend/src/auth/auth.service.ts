@@ -14,7 +14,7 @@ import { IJwtToken } from './dto/auth.dto';
 export class AuthService {
   constructor(
     private userService: UsersService,
-    private readonly jwtService: JwtService
+    private jwtService: JwtService
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
@@ -27,14 +27,6 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
-    console.log(user);
-    const payload = { username: user.username, sub: user.userId };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
-  }
-
   wrapperJwt(user: UserDto) {
     return {
       access_token: this.jwtService.sign({
@@ -45,14 +37,18 @@ export class AuthService {
     };
   }
 
-  async signin(dto: CreateUserDto): Promise<IJwtToken> {
+  async login(dto: CreateUserDto): Promise<IJwtToken> {
     const user = await this.userService.getUserByEmail(dto.email);
     const isMatch = await bcrypt.compare(dto.password, user.password);
-    if (user && isMatch) return this.wrapperJwt(user);
+    if (user && isMatch) {
+      const jwt = this.wrapperJwt(user);
+      await this.userService.updateUser(user.id, 'jwtToken', jwt.access_token);
+      return jwt;
+    }
     throw new UnauthorizedException({ message: 'wrong email either password' });
   }
 
-  async registration(dto: CreateUserDto): Promise<IJwtToken> {
+  async registration(dto: CreateUserDto): Promise<UserDto> {
     const candidate = await this.userService.getUserByEmail(dto.email);
     if (candidate) throw new HttpException(candidate, HttpStatus.BAD_REQUEST);
     const hash = await bcrypt.hash(
@@ -63,6 +59,6 @@ export class AuthService {
       ...dto,
       password: hash,
     });
-    return this.wrapperJwt(create);
+    return create;
   }
 }

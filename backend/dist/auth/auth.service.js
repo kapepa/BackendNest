@@ -42,6 +42,7 @@ let AuthService = class AuthService {
     wrapperJwt(user) {
         return {
             access_token: this.jwtService.sign({
+                username: user.email,
                 email: user.email,
                 password: user.password,
                 sub: user.id,

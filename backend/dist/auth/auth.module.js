@@ -15,6 +15,8 @@ const passport_1 = require("@nestjs/passport");
 const jwt_1 = require("@nestjs/jwt");
 const jwt_strategy_1 = require("./strategy/jwt.strategy");
 const local_strategy_1 = require("./strategy/local.strategy");
+const dotenv_1 = require("dotenv");
+(0, dotenv_1.config)();
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -23,7 +25,7 @@ AuthModule = __decorate([
             users_module_1.UsersModule,
             passport_1.PassportModule,
             jwt_1.JwtModule.register({
-                secret: String(process.env.JWT_SECRET),
+                secret: process.env.JWT_SECRET,
                 signOptions: { expiresIn: '2600000s' },
             }),
         ],

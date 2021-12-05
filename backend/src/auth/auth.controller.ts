@@ -37,7 +37,6 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Post('/up')
   async up(@Request() req){
-
     console.log(req.user);
   }
 }

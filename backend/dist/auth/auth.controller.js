@@ -18,8 +18,10 @@ const swagger_1 = require("@nestjs/swagger");
 const create_user_dto_1 = require("../users/dto/create-user.dto");
 const auth_service_1 = require("./auth.service");
 const auth_dto_1 = require("./dto/auth.dto");
-const jwt_auth_guard_1 = require("./strategy/jwt-auth.guard");
-const local_auth_guard_1 = require("./strategy/local-auth.guard");
+const jwt_auth_guard_1 = require("./guard/jwt-auth.guard");
+const local_auth_guard_1 = require("./guard/local-auth.guard");
+const roles_decorator_1 = require("./decorator/roles.decorator");
+const role_enum_1 = require("./dto/role.enum");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -33,7 +35,6 @@ let AuthController = class AuthController {
         return regist;
     }
     async up(req) {
-        console.log(req.user);
     }
 };
 __decorate([
@@ -64,7 +65,13 @@ __decorate([
 ], AuthController.prototype, "registration", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.User, role_enum_1.Role.Admin),
     (0, common_1.Post)('/up'),
+    (0, swagger_1.ApiCreatedResponse)({
+        status: 200,
+        description: 'Up user',
+        type: auth_dto_1.IJwtToken,
+    }),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

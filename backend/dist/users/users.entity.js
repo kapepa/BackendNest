@@ -50,7 +50,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Users.prototype, "roles", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: '', length: 500 }),
+    (0, typeorm_1.Column)({ default: '', length: 1000 }),
     __metadata("design:type", String)
 ], Users.prototype, "jwtToken", void 0);
 __decorate([

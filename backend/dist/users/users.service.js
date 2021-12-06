@@ -18,27 +18,24 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const users_entity_1 = require("./users.entity");
 const roles_service_1 = require("../roles/roles.service");
+const role_enum_1 = require("../auth/dto/role.enum");
 let UsersService = class UsersService {
     constructor(usersRepository, roleServise) {
         this.usersRepository = usersRepository;
         this.roleServise = roleServise;
     }
-    async findOne(email) {
-        const user = await this.usersRepository.findOne({
-            where: { email: email },
-        });
-        return user;
-    }
     async createUser(dto) {
         try {
             const user = this.usersRepository.create(dto);
-            const role = await this.roleServise.getRolesByValue('USER');
+            const role = await this.roleServise.getRolesByValue(Object.values(role_enum_1.Role).includes(dto.role) ? dto.role : 'USER');
+            if (!role)
+                throw new common_1.HttpException('Such role not found', common_1.HttpStatus.FORBIDDEN);
             user.roles = [role];
             const save = await this.usersRepository.save(user);
             return save;
         }
         catch (e) {
-            return e.name;
+            throw new common_1.HttpException('Happened mistake in create user', common_1.HttpStatus.FORBIDDEN);
         }
     }
     async getAllUser() {
@@ -49,12 +46,17 @@ let UsersService = class UsersService {
             return users;
         }
         catch (e) {
-            return e.name;
+            throw new common_1.HttpException('Happened mistake in registration', common_1.HttpStatus.FORBIDDEN);
         }
     }
     async updateUser(id, field, data) {
-        const update = await this.usersRepository.update(id, { [field]: data });
-        return null;
+        try {
+            const update = await this.usersRepository.update(id, { [field]: data });
+            return null;
+        }
+        catch (e) {
+            throw new common_1.HttpException('Happened mistake in update user', common_1.HttpStatus.FORBIDDEN);
+        }
     }
     async getUserByEmail(email) {
         try {
@@ -65,7 +67,40 @@ let UsersService = class UsersService {
             return user;
         }
         catch (e) {
-            return e.name;
+            throw new common_1.HttpException('Happened mistake in receive user on email', common_1.HttpStatus.FORBIDDEN);
+        }
+    }
+    async role(dto) {
+        try {
+            const { role, userId } = dto;
+            const user = await this.usersRepository.findOne({
+                where: { id: userId },
+                relations: ['roles'],
+            });
+            const userRole = await this.roleServise.getRolesByValue(role);
+            user.roles.push(userRole);
+            const save = await this.usersRepository.save(user);
+            return save;
+        }
+        catch (e) {
+            throw new common_1.HttpException('Happened mistake in receive user role', common_1.HttpStatus.FORBIDDEN);
+        }
+    }
+    async ban(dto) {
+        try {
+            const { banReason, userId } = dto;
+            const user = await this.usersRepository.findOne({
+                where: { id: userId },
+                relations: ['roles'],
+            });
+            user.banned = true;
+            user.banReason = banReason;
+            user.roles = [];
+            const updateSave = await this.usersRepository.save(user);
+            return updateSave;
+        }
+        catch (e) {
+            throw new common_1.HttpException('Attemp set ban happen failed', common_1.HttpStatus.FORBIDDEN);
         }
     }
 };

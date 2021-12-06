@@ -40,12 +40,9 @@ let AuthService = class AuthService {
         return null;
     }
     wrapperJwt(user) {
+        const { password, jwtToken } = user, data = __rest(user, ["password", "jwtToken"]);
         return {
-            access_token: this.jwtService.sign({
-                email: user.email,
-                password: user.password,
-                sub: user.id,
-            }),
+            access_token: this.jwtService.sign(Object.assign({ sub: user.id }, data)),
         };
     }
     async login(dto) {

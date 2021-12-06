@@ -1,14 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { UserDto } from '../../users/dto/create-user.dto';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateRoleDto {
   @ApiProperty({
     description: 'value role',
   })
+  @IsNotEmpty({ message: 'Empty role value' })
+  @IsString({ message: 'Wrong role value' })
   readonly value: string;
   @ApiProperty({
     description: 'description role',
   })
+  @IsNotEmpty({ message: 'Empty role description' })
+  @IsString({ message: 'Wrong role description' })
   readonly description: string;
 }
 

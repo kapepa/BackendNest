@@ -16,6 +16,7 @@ const jwt_1 = require("@nestjs/jwt");
 const jwt_strategy_1 = require("./strategy/jwt.strategy");
 const local_strategy_1 = require("./strategy/local.strategy");
 const dotenv_1 = require("dotenv");
+const roles_guard_1 = require("./guard/roles.guard");
 (0, dotenv_1.config)();
 let AuthModule = class AuthModule {
 };
@@ -30,7 +31,15 @@ AuthModule = __decorate([
             }),
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, local_strategy_1.LocalStrategy, jwt_strategy_1.JwtStrategy],
+        providers: [
+            auth_service_1.AuthService,
+            local_strategy_1.LocalStrategy,
+            jwt_strategy_1.JwtStrategy,
+            {
+                provide: 'APP_GUARD',
+                useClass: roles_guard_1.RolesGuard,
+            },
+        ],
         exports: [auth_service_1.AuthService, jwt_1.JwtModule],
     })
 ], AuthModule);

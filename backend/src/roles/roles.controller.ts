@@ -1,13 +1,18 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { RoleDto, CreateRoleDto } from './dto/roles.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Roles } from '../auth/decorator/roles.decorator';
+import { Role } from '../auth/dto/role.enum';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 
 @ApiTags('Roles')
 @Controller('roles')
 export class RolesController {
   constructor(private roleService: RolesService) {}
 
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin)
   @Post('/create')
   @ApiResponse({
     status: 200,
@@ -19,6 +24,8 @@ export class RolesController {
     return role;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.User, Role.Admin)
   @Post('/receive/:val')
   @ApiResponse({
     status: 200,

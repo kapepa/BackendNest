@@ -11,12 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IJwtToken = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const class_validator_1 = require("class-validator");
 class IJwtToken {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'jwt token',
     }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'access_token empty' }),
+    (0, class_validator_1.IsString)({ message: 'wrong access_token' }),
     __metadata("design:type", String)
 ], IJwtToken.prototype, "access_token", void 0);
 exports.IJwtToken = IJwtToken;

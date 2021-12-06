@@ -28,11 +28,11 @@ export class AuthService {
   }
 
   wrapperJwt(user: UserDto) {
+    const { password, jwtToken, ...data } = user;
     return {
       access_token: this.jwtService.sign({
-        email: user.email,
-        password: user.password,
         sub: user.id,
+        ...data,
       }),
     };
   }

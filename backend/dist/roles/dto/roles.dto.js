@@ -11,18 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoleDto = exports.CreateRoleDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const class_validator_1 = require("class-validator");
 class CreateRoleDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'value role',
     }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Empty role value' }),
+    (0, class_validator_1.IsString)({ message: 'Wrong role value' }),
     __metadata("design:type", String)
 ], CreateRoleDto.prototype, "value", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'description role',
     }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Empty role description' }),
+    (0, class_validator_1.IsString)({ message: 'Wrong role description' }),
     __metadata("design:type", String)
 ], CreateRoleDto.prototype, "description", void 0);
 exports.CreateRoleDto = CreateRoleDto;

@@ -17,6 +17,9 @@ const common_1 = require("@nestjs/common");
 const roles_service_1 = require("./roles.service");
 const roles_dto_1 = require("./dto/roles.dto");
 const swagger_1 = require("@nestjs/swagger");
+const roles_decorator_1 = require("../auth/decorator/roles.decorator");
+const role_enum_1 = require("../auth/dto/role.enum");
+const jwt_auth_guard_1 = require("../auth/guard/jwt-auth.guard");
 let RolesController = class RolesController {
     constructor(roleService) {
         this.roleService = roleService;
@@ -31,6 +34,8 @@ let RolesController = class RolesController {
     }
 };
 __decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.Admin),
     (0, common_1.Post)('/create'),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -43,6 +48,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RolesController.prototype, "create", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.User, role_enum_1.Role.Admin),
     (0, common_1.Post)('/receive/:val'),
     (0, swagger_1.ApiResponse)({
         status: 200,

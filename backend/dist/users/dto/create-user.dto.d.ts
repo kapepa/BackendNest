@@ -2,6 +2,7 @@ import { RoleDto } from '../../roles/dto/roles.dto';
 export declare class CreateUserDto {
     readonly email: string;
     readonly password: string;
+    readonly role?: string;
 }
 export declare class UserDto {
     readonly id: string;

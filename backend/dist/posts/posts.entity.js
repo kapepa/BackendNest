@@ -9,65 +9,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Users = void 0;
+exports.Posts = void 0;
 const typeorm_1 = require("typeorm");
-const roles_entity_1 = require("../roles/roles.entity");
-const posts_entity_1 = require("../posts/posts.entity");
-let Users = class Users {
+const users_entity_1 = require("../users/users.entity");
+let Posts = class Posts {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], Users.prototype, "id", void 0);
+], Posts.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Users.prototype, "email", void 0);
+], Posts.prototype, "title", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Users.prototype, "password", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ default: false }),
-    __metadata("design:type", Boolean)
-], Users.prototype, "banned", void 0);
+], Posts.prototype, "article", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: '' }),
     __metadata("design:type", String)
-], Users.prototype, "banReason", void 0);
+], Posts.prototype, "image", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => roles_entity_1.Roles, (roles) => roles.user),
-    (0, typeorm_1.JoinTable)({
-        name: 'users_roles',
-        joinColumn: {
-            name: 'usersId',
-            referencedColumnName: 'id',
-        },
-        inverseJoinColumn: {
-            name: 'rolesId',
-            referencedColumnName: 'id',
-        },
-    }),
-    __metadata("design:type", Array)
-], Users.prototype, "roles", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => posts_entity_1.Posts, (posts) => posts.user),
-    __metadata("design:type", Array)
-], Users.prototype, "posts", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ default: '', length: 1000 }),
-    __metadata("design:type", String)
-], Users.prototype, "jwtToken", void 0);
+    (0, typeorm_1.ManyToOne)(() => users_entity_1.Users, (user) => user.posts),
+    __metadata("design:type", users_entity_1.Users)
+], Posts.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
-], Users.prototype, "updatedDate", void 0);
+], Posts.prototype, "updatedDate", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
-], Users.prototype, "createdDate", void 0);
-Users = __decorate([
+], Posts.prototype, "createdDate", void 0);
+Posts = __decorate([
     (0, typeorm_1.Entity)()
-], Users);
-exports.Users = Users;
-//# sourceMappingURL=users.entity.js.map
+], Posts);
+exports.Posts = Posts;
+//# sourceMappingURL=posts.entity.js.map

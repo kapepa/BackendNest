@@ -17,6 +17,8 @@ const roles_module_1 = require("./roles/roles.module");
 const auth_service_1 = require("./auth/auth.service");
 const auth_controller_1 = require("./auth/auth.controller");
 const auth_module_1 = require("./auth/auth.module");
+const posts_module_1 = require("./posts/posts.module");
+const posts_entity_1 = require("./posts/posts.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -32,13 +34,14 @@ AppModule = __decorate([
                 username: process.env.MYSQL_USER,
                 password: process.env.MYSQL_PASSWORD,
                 database: process.env.MYSQL_DB,
-                entities: [users_entity_1.Users, roles_entity_1.Roles],
+                entities: [users_entity_1.Users, roles_entity_1.Roles, posts_entity_1.Posts],
                 synchronize: true,
                 autoLoadEntities: true,
             }),
             users_module_1.UsersModule,
             roles_module_1.RolesModule,
             auth_module_1.AuthModule,
+            posts_module_1.PostsModule,
         ],
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService],

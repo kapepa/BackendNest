@@ -1,12 +1,12 @@
-import {Body, Controller, Post, Request, UseGuards} from '@nestjs/common';
-import {ApiCreatedResponse, ApiTags} from '@nestjs/swagger';
-import {CreateUserDto, UserDto} from '../users/dto/create-user.dto';
-import {AuthService} from './auth.service';
-import {IJwtToken} from './dto/auth.dto';
-import {JwtAuthGuard} from './guard/jwt-auth.guard';
-import {LocalAuthGuard} from './guard/local-auth.guard';
-import {Roles} from './decorator/roles.decorator';
-import {Role} from './dto/role.enum';
+import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { CreateUserDto, UserDto } from '../users/dto/create-user.dto';
+import { AuthService } from './auth.service';
+import { IJwtToken } from './dto/auth.dto';
+import { JwtAuthGuard } from './guard/jwt-auth.guard';
+import { LocalAuthGuard } from './guard/local-auth.guard';
+import { Roles } from './decorator/roles.decorator';
+import { Role } from './dto/role.enum';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -44,7 +44,7 @@ export class AuthController {
     description: 'Up user',
     type: IJwtToken,
   })
-  async up(@Request() req){
+  async up(@Request() req) {
     // console.log(req.user);
   }
 }

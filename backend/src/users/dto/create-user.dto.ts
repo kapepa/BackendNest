@@ -8,6 +8,7 @@ import {
   IsEnum,
 } from 'class-validator';
 import { Role } from '../../auth/dto/role.enum';
+import { PostsDto } from '../../posts/dto/posts.dto';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -47,7 +48,7 @@ export class UserDto {
   @ApiProperty({
     description: 'user password',
   })
-  readonly password: string;
+  readonly password?: string;
 
   @ApiProperty({
     description: 'user banned',
@@ -63,6 +64,11 @@ export class UserDto {
     description: 'roles user',
   })
   readonly roles?: RoleDto[];
+
+  @ApiProperty({
+    description: 'posts user',
+  })
+  posts: PostsDto[];
 
   @ApiProperty({
     description: 'JwtToken',

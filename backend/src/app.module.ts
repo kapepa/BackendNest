@@ -8,6 +8,8 @@ import { RolesModule } from './roles/roles.module';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
+import { PostsModule } from './posts/posts.module';
+import { Posts } from './posts/posts.entity';
 
 @Module({
   imports: [
@@ -21,13 +23,14 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DB,
-      entities: [Users, Roles],
+      entities: [Users, Roles, Posts],
       synchronize: true,
       autoLoadEntities: true,
     }),
     UsersModule,
     RolesModule,
     AuthModule,
+    PostsModule,
   ],
   controllers: [AuthController],
   providers: [AuthService],

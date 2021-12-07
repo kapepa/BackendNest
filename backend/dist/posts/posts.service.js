@@ -12,41 +12,34 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RolesService = void 0;
+exports.PostsService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const posts_entity_1 = require("./posts.entity");
 const typeorm_2 = require("typeorm");
-const roles_entity_1 = require("./roles.entity");
-let RolesService = class RolesService {
-    constructor(roleRepository) {
-        this.roleRepository = roleRepository;
+const users_service_1 = require("../users/users.service");
+let PostsService = class PostsService {
+    constructor(postsRepository, userService) {
+        this.postsRepository = postsRepository;
+        this.userService = userService;
     }
-    async createRole(dto) {
+    async create(dto, profil) {
         try {
-            const createRole = this.roleRepository.create(dto);
-            const saveRole = await this.roleRepository.save(createRole);
-            return saveRole;
+            const user = await this.userService.getUserByEmail(profil.email);
+            const post = await this.postsRepository.create(dto);
+            user.posts = post;
+            return true;
         }
         catch (e) {
-            return e.name;
-        }
-    }
-    async getRolesByValue(value) {
-        try {
-            const role = await this.roleRepository.findOne({
-                where: { value: value },
-            });
-            return role;
-        }
-        catch (e) {
-            return e.name;
+            throw new common_1.HttpException('Happened mistake in create post', common_1.HttpStatus.FORBIDDEN);
         }
     }
 };
-RolesService = __decorate([
+PostsService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(roles_entity_1.Roles)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
-], RolesService);
-exports.RolesService = RolesService;
-//# sourceMappingURL=roles.service.js.map
+    __param(0, (0, typeorm_1.InjectRepository)(posts_entity_1.Posts)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        users_service_1.UsersService])
+], PostsService);
+exports.PostsService = PostsService;
+//# sourceMappingURL=posts.service.js.map

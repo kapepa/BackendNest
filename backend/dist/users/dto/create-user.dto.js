@@ -81,6 +81,12 @@ __decorate([
 ], UserDto.prototype, "roles", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
+        description: 'posts user',
+    }),
+    __metadata("design:type", Array)
+], UserDto.prototype, "posts", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
         description: 'JwtToken',
     }),
     __metadata("design:type", String)

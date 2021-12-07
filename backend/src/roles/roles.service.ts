@@ -15,7 +15,6 @@ export class RolesService {
     try {
       const createRole = this.roleRepository.create(dto);
       const saveRole = await this.roleRepository.save(createRole);
-      console.log(saveRole);
       return saveRole;
     } catch (e) {
       return e.name;

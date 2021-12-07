@@ -65,7 +65,7 @@ export class UsersService {
     try {
       const user = await this.usersRepository.findOne({
         where: { email },
-        relations: ['roles'],
+        relations: ['roles', 'posts'],
       });
       return user;
     } catch (e) {

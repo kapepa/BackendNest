@@ -6,8 +6,10 @@ import {
   CreateDateColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { Roles } from '../roles/roles.entity';
+import { Posts } from '../posts/posts.entity';
 
 @Entity()
 export class Users {
@@ -39,6 +41,9 @@ export class Users {
     },
   })
   roles: Roles[];
+
+  @OneToMany(() => Posts, (posts) => posts.user)
+  posts: Posts[];
 
   @Column({ default: '', length: 1000 })
   jwtToken: string;

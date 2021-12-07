@@ -58,6 +58,10 @@ let UsersService = class UsersService {
             throw new common_1.HttpException('Happened mistake in update user', common_1.HttpStatus.FORBIDDEN);
         }
     }
+    async upgradeUser(profil) {
+        const user = await this.usersRepository.save(profil);
+        return user;
+    }
     async getUserByEmail(email) {
         try {
             const user = await this.usersRepository.findOne({

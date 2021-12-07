@@ -68,7 +68,7 @@ export class UserDto {
   @ApiProperty({
     description: 'posts user',
   })
-  posts: PostsDto[];
+  posts?: PostsDto[];
 
   @ApiProperty({
     description: 'JwtToken',

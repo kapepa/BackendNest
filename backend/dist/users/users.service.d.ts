@@ -11,6 +11,7 @@ export declare class UsersService {
     createUser(dto: CreateUserDto): Promise<UserDto>;
     getAllUser(): Promise<UserDto[]>;
     updateUser(id: string, field: string, data: any): Promise<any>;
+    upgradeUser(profil: UserDto): Promise<UserDto>;
     getUserByEmail(email: string): Promise<UserDto>;
     role(dto: RoleUserDto): Promise<UserDto>;
     ban(dto: BanUserDto): Promise<UserDto>;

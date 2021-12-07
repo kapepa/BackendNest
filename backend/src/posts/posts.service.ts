@@ -18,11 +18,10 @@ export class PostsService {
     try {
       const user = await this.userService.getUserByEmail(profil.email);
       const post = await this.postsRepository.create(dto);
-      user.posts = post;
-
-      // post.user = profil;
-      // const savePosts = await this.postsRepository.save(post);
-      return true;
+      user.posts = [post];
+      await this.postsRepository.save(post);
+      await this.userService.upgradeUser(user);
+      return post;
     } catch (e) {
       throw new HttpException(
         'Happened mistake in create post',

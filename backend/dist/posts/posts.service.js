@@ -27,8 +27,10 @@ let PostsService = class PostsService {
         try {
             const user = await this.userService.getUserByEmail(profil.email);
             const post = await this.postsRepository.create(dto);
-            user.posts = post;
-            return true;
+            user.posts = [post];
+            await this.postsRepository.save(post);
+            await this.userService.upgradeUser(user);
+            return post;
         }
         catch (e) {
             throw new common_1.HttpException('Happened mistake in create post', common_1.HttpStatus.FORBIDDEN);

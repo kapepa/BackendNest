@@ -61,6 +61,11 @@ export class UsersService {
     }
   }
 
+  async upgradeUser(profil: UserDto): Promise<UserDto> {
+    const user = await this.usersRepository.save(profil);
+    return user;
+  }
+
   async getUserByEmail(email: string): Promise<UserDto> {
     try {
       const user = await this.usersRepository.findOne({

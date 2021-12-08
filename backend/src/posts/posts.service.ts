@@ -21,6 +21,7 @@ export class PostsService {
       user.posts = [post];
       await this.postsRepository.save(post);
       await this.userService.upgradeUser(user);
+
       return post;
     } catch (e) {
       throw new HttpException(

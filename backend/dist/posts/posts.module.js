@@ -13,11 +13,12 @@ const posts_service_1 = require("./posts.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const posts_entity_1 = require("./posts.entity");
 const users_module_1 = require("../users/users.module");
+const file_module_1 = require("../file/file.module");
 let PostsModule = class PostsModule {
 };
 PostsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([posts_entity_1.Posts]), users_module_1.UsersModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([posts_entity_1.Posts]), users_module_1.UsersModule, file_module_1.FileModule],
         controllers: [posts_controller_1.PostsController],
         providers: [posts_service_1.PostsService],
     })

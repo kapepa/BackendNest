@@ -19,11 +19,17 @@ const auth_controller_1 = require("./auth/auth.controller");
 const auth_module_1 = require("./auth/auth.module");
 const posts_module_1 = require("./posts/posts.module");
 const posts_entity_1 = require("./posts/posts.entity");
+const file_module_1 = require("./file/file.module");
+const serve_static_1 = require("@nestjs/serve-static");
+const path_1 = require("path");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: (0, path_1.join)(__dirname, 'static'),
+            }),
             config_1.ConfigModule.forRoot({
                 envFilePath: '.env',
             }),
@@ -42,6 +48,7 @@ AppModule = __decorate([
             roles_module_1.RolesModule,
             auth_module_1.AuthModule,
             posts_module_1.PostsModule,
+            file_module_1.FileModule,
         ],
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService],

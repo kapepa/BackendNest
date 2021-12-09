@@ -15,10 +15,15 @@ export class CreatePostsDto {
   })
   @IsString({ message: 'content not is string' })
   readonly article: string;
-  // readonly image?: string;
+  readonly image?: any;
 }
 
 export class PostsDto {
+  @ApiProperty({
+    description: 'post id',
+  })
+  readonly id: string;
+
   @ApiProperty({
     description: 'post title',
   })

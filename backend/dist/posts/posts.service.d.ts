@@ -1,11 +1,15 @@
+/// <reference types="multer" />
 import { Posts } from './posts.entity';
 import { Repository } from 'typeorm';
-import { CreatePostsDto } from './dto/posts.dto';
+import { CreatePostsDto, PostsDto } from './dto/posts.dto';
 import { UserDto } from '../users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
+import { FileService } from '../file/file.service';
 export declare class PostsService {
     private postsRepository;
     private userService;
-    constructor(postsRepository: Repository<Posts>, userService: UsersService);
-    create(dto: CreatePostsDto, profil: UserDto): Promise<any>;
+    private fileService;
+    constructor(postsRepository: Repository<Posts>, userService: UsersService, fileService: FileService);
+    create(image: Express.Multer.File, dto: CreatePostsDto, profil: UserDto): Promise<any>;
+    getOne(id: string): Promise<PostsDto>;
 }

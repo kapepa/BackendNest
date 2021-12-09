@@ -18,30 +18,45 @@ const typeorm_1 = require("@nestjs/typeorm");
 const posts_entity_1 = require("./posts.entity");
 const typeorm_2 = require("typeorm");
 const users_service_1 = require("../users/users.service");
+const file_service_1 = require("../file/file.service");
 let PostsService = class PostsService {
-    constructor(postsRepository, userService) {
+    constructor(postsRepository, userService, fileService) {
         this.postsRepository = postsRepository;
         this.userService = userService;
+        this.fileService = fileService;
     }
-    async create(dto, profil) {
+    async create(image, dto, profil) {
         try {
             const user = await this.userService.getUserByEmail(profil.email);
             const post = await this.postsRepository.create(dto);
             user.posts = [post];
+            if (image) {
+                const saveImage = await this.fileService.load(image);
+                post.image = saveImage;
+            }
             await this.postsRepository.save(post);
             await this.userService.upgradeUser(user);
             return post;
+            return true;
         }
         catch (e) {
             throw new common_1.HttpException('Happened mistake in create post', common_1.HttpStatus.FORBIDDEN);
         }
+    }
+    async getOne(id) {
+        const article = await this.postsRepository.findOne({
+            where: { id },
+            relations: ['user'],
+        });
+        return article;
     }
 };
 PostsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(posts_entity_1.Posts)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        users_service_1.UsersService])
+        users_service_1.UsersService,
+        file_service_1.FileService])
 ], PostsService);
 exports.PostsService = PostsService;
 //# sourceMappingURL=posts.service.js.map

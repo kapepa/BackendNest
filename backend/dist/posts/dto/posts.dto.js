@@ -33,6 +33,12 @@ class PostsDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({
+        description: 'post id',
+    }),
+    __metadata("design:type", String)
+], PostsDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
         description: 'post title',
     }),
     (0, class_validator_1.IsString)({ message: 'title not is string' }),

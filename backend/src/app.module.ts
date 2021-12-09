@@ -10,9 +10,15 @@ import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { Posts } from './posts/posts.entity';
+import { FileModule } from './file/file.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, 'static'),
+    }),
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
@@ -31,6 +37,7 @@ import { Posts } from './posts/posts.entity';
     RolesModule,
     AuthModule,
     PostsModule,
+    FileModule,
   ],
   controllers: [AuthController],
   providers: [AuthService],

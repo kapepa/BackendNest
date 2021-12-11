@@ -21,7 +21,7 @@ services:
     container_name: nest
     restart: always
     build:
-      context: .
+      context: ./
       dockerfile: ./Dockerfile
     command: npm run dev
     env_file:

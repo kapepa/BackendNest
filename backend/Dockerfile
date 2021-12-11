@@ -14,4 +14,5 @@ EXPOSE 5000
 
 VOLUME [ "/backend/store" ]
 
+
 CMD ["node", "dist/main"]

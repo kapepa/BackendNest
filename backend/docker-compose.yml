@@ -23,32 +23,9 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    command: npm run dev
-    env_file:
-      - .env
     ports:
       - 5000:5000
       - 9229:9229
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-
-#    image: node:14
-#    container_name: nest
-#    restart: always
-#    tty: true
-##    links:
-##      - db
-#    build:
-#      context: ./
-#    env_file:
-#      - .env
-#    volumes:
-#      - "./backend :/backend"
-#      - "/backend/node_modules :/node_modules"
-#    ports:
-#      - "5000:5000"
-#      - "9229:9229"
 volumes:
   db_data: {}
   wordpress_data: {}

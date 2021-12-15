@@ -18,13 +18,20 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.userService.getUserByEmail(email);
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (user && isMatch) {
-      const { password, ...result } = user;
-      return result;
+    try {
+      const user = await this.userService.getUserByEmail(email);
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (user && isMatch) {
+        const { password, ...result } = user;
+        return result;
+      }
+      return null;
+    } catch (e) {
+      throw new HttpException(
+        'Validate user mistake',
+        HttpStatus.FORBIDDEN
+      );
     }
-    return null;
   }
 
   wrapperJwt(user: UserDto) {
@@ -49,16 +56,23 @@ export class AuthService {
   }
 
   async registration(dto: CreateUserDto): Promise<UserDto> {
-    const candidate = await this.userService.getUserByEmail(dto.email);
-    if (candidate) throw new HttpException(candidate, HttpStatus.BAD_REQUEST);
-    const hash = await bcrypt.hash(
-      dto.password,
-      Number(process.env.BCRYPT_SALT)
-    );
-    const create = await this.userService.createUser({
-      ...dto,
-      password: hash,
-    });
-    return create;
+    try {
+      const candidate = await this.userService.getUserByEmail(dto.email);
+      if (candidate) throw new HttpException(candidate, HttpStatus.BAD_REQUEST);
+      const hash = await bcrypt.hash(
+        dto.password,
+        Number(process.env.BCRYPT_SALT)
+      );
+      const create = await this.userService.createUser({
+        ...dto,
+        password: hash,
+      });
+      return create;
+    } catch (e) {
+      throw new HttpException(
+        'registration mistake',
+        HttpStatus.FORBIDDEN
+      );
+    }
   }
 }

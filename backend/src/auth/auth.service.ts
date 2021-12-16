@@ -14,7 +14,7 @@ import { IJwtToken } from './dto/auth.dto';
 export class AuthService {
   constructor(
     private userService: UsersService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {

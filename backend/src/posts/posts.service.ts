@@ -13,7 +13,7 @@ export class PostsService {
     @InjectRepository(Posts)
     private postsRepository: Repository<Posts>,
     private userService: UsersService,
-    private fileService: FileService
+    private fileService: FileService,
   ) {}
 
   async create(
